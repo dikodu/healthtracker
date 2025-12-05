@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tracker - Ernährung & Bewegung</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-heartbeat"></i> Health Tracker</h1>
+            <p class="subtitle">Ernährung, Getränke & Bewegung tracken</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('food')">
+                <i class="fas fa-utensils"></i> Essen
+            </button>
+            <button class="tab-btn" onclick="switchTab('drink')">
+                <i class="fas fa-glass-water"></i> Trinken
+            </button>
+            <button class="tab-btn" onclick="switchTab('activity')">
+                <i class="fas fa-walking"></i> Bewegung
+            </button>
+            <button class="tab-btn" onclick="switchTab('history')">
+                <i class="fas fa-history"></i> Verlauf
+            </button>
+        </nav>
+
+        <!-- Essen Tab -->
+        <section class="tab-content active" id="foodTab">
+            <h2><i class="fas fa-utensils"></i> Essen tracken</h2>
+            <div class="form-card">
+                <div class="form-group">
+                    <label for="foodItem">Lebensmittel:</label>
+                    <select id="foodItem" onchange="toggleCustomFoodField()">
+                        <option value="">-- Auswählen --</option>
+                        <optgroup label="Milchprodukte">
+                            <option value="Magerquark">Magerquark</option>
+                            <option value="Körniger Frischkäse">Körniger Frischkäse</option>
+                            <option value="Naturjoghurt">Naturjoghurt</option>
+                            <option value="Skyr">Skyr</option>
+                            <option value="Käse (fettarm)">Käse (fettarm)</option>
+                            <option value="Feta">Feta</option>
+                            <option value="Milch (fettarm)">Milch (fettarm)</option>
+                        </optgroup>
+                        <optgroup label="Proteine">
+                            <option value="Hähnchenbrust">Hähnchenbrust</option>
+                            <option value="Putenbrust">Putenbrust</option>
+                            <option value="Fisch (Lachs)">Fisch (Lachs)</option>
+                            <option value="Fisch (Thunfisch)">Fisch (Thunfisch)</option>
+                            <option value="Ei">Ei</option>
+                            <option value="Tofu">Tofu</option>
+                            <option value="Vegane Wurst">Vegane Wurst</option>
+                        </optgroup>
+                        <optgroup label="Kohlenhydrate">
+                            <option value="Haferflocken">Haferflocken</option>
+                            <option value="Brot (Vollkorn)">Brot (Vollkorn)</option>
+                            <option value="Brot (normal)">Brot (normal)</option>
+                            <option value="Nudeln (Vollkorn)">Nudeln (Vollkorn)</option>
+                            <option value="Nudeln (normal)">Nudeln (normal)</option>
+                            <option value="Reis (Vollkorn)">Reis (Vollkorn)</option>
+                            <option value="Reis (normal)">Reis (normal)</option>
+                            <option value="Kartoffeln">Kartoffeln</option>
+                        </optgroup>
+                        <optgroup label="Gemüse">
+                            <option value="Avocado">Avocado</option>
+                            <option value="Blumenkohl">Blumenkohl</option>
+                            <option value="Brokkoli">Brokkoli</option>
+                            <option value="Fenchel">Fenchel</option>
+                            <option value="Grünkohl">Grünkohl</option>
+                            <option value="Gurke">Gurke</option>
+                            <option value="Karotte">Karotte</option>
+                            <option value="Kohlrabi">Kohlrabi</option>
+                            <option value="Kürbis">Kürbis</option>
+                            <option value="Paprika">Paprika</option>
+                            <option value="Salat (gemischt)">Salat (gemischt)</option>
+                            <option value="Spinat">Spinat</option>
+                            <option value="Spitzkohl">Spitzkohl</option>
+                            <option value="Tomaten">Tomaten</option>
+                            <option value="Weißkohl">Weißkohl</option>
+                            <option value="Zucchini">Zucchini</option>
+                            <option value="Zwiebeln">Zwiebeln</option>
+                        </optgroup>
+                        <optgroup label="Obst">
+                            <option value="Ananas">Ananas</option>
+                            <option value="Apfel">Apfel</option>
+                            <option value="Aprikose">Aprikose</option>
+                            <option value="Banane">Banane</option>
+                            <option value="Beeren (gemischt)">Beeren (gemischt)</option>
+                            <option value="Birne">Birne</option>
+                            <option value="Erdbeeren">Erdbeeren</option>
+                            <option value="Heidelbeeren">Heidelbeeren</option>
+                            <option value="Himbeeren">Himbeeren</option>
+                            <option value="Kiwi">Kiwi</option>
+                            <option value="Mango">Mango</option>
+                            <option value="Melone">Melone</option>
+                            <option value="Orange">Orange</option>
+                            <option value="Pfirsich">Pfirsich</option>
+                            <option value="Pflaume">Pflaume</option>
+                            <option value="Traube">Traube</option>
+                            <option value="Zitrone">Zitrone</option>
+                        </optgroup>
+                        <optgroup label="Sonstiges">
+                            <option value="Flavour">Flavour</option>
+                            <option value="Nüsse">Nüsse</option>
+                            <option value="Olivenöl">Olivenöl</option>
+                        </optgroup>
+                        <optgroup label="🍽️ Fertige Gerichte">
+                            <option value="Quark KöFri Flavour">Quark KöFri Flavour</option>
+                            <option value="Kartoffeln Gemüse Feta">Kartoffeln Gemüse Feta</option>
+                        </optgroup>
+                        <optgroup label="✨ Eigene Eingabe">
+                            <option value="CUSTOM">-- Eigenes Lebensmittel eingeben --</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group" id="customFoodField" style="display: none;">
+                    <label for="customFoodInput">Eigenes Lebensmittel:</label>
+                    <input type="text" id="customFoodInput" placeholder="z.B. Pizza, Salami, etc.">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="foodAmount">Menge:</label>
+                        <input type="number" id="foodAmount" step="0.1" placeholder="z.B. 250">
+                    </div>
+                    <div class="form-group">
+                        <label for="foodUnit">Einheit:</label>
+                        <select id="foodUnit">
+                            <option value="g">Gramm (g)</option>
+                            <option value="ml">Milliliter (ml)</option>
+                            <option value="Stück">Stück</option>
+                            <option value="Scheibe">Scheibe</option>
+                            <option value="Esslöffel">Esslöffel</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="foodMeal">Mahlzeit:</label>
+                    <select id="foodMeal">
+                        <option value="Frühstück">Frühstück</option>
+                        <option value="Vormittag-Snack">Vormittag-Snack</option>
+                        <option value="Mittag">Mittag</option>
+                        <option value="Nachmittag-Snack">Nachmittag-Snack</option>
+                        <option value="Abendessen">Abendessen</option>
+                        <option value="Spät-Snack">Spät-Snack</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="foodComment">Kommentar (optional):</label>
+                    <input type="text" id="foodComment" placeholder="z.B. Essengehen, Weihnachtsfeier">
+                </div>
+                <button class="btn btn-primary" onclick="addFood()">
+                    <i class="fas fa-plus"></i> Hinzufügen
+                </button>
+            </div>
+        </section>
+
+        <!-- Trinken Tab -->
+        <section class="tab-content" id="drinkTab">
+            <h2><i class="fas fa-glass-water"></i> Trinken tracken</h2>
+            <div class="form-card">
+                <div class="form-group">
+                    <label for="drinkItem">Getränk:</label>
+                    <select id="drinkItem" onchange="toggleCustomDrinkField()">
+                        <option value="">-- Auswählen --</option>
+                        <optgroup label="Ohne Kalorien">
+                            <option value="Wasser">Wasser</option>
+                            <option value="Tee (ungesüßt)">Tee (ungesüßt)</option>
+                            <option value="Coke Zero">Coke Zero</option>
+                            <option value="Zero Limo">Zero Limo</option>
+                            <option value="Holy">Holy</option>
+                        </optgroup>
+                        <optgroup label="Mit Kalorien">
+                            <option value="Milch">Milch</option>
+                            <option value="Saft">Saft</option>
+                            <option value="Smoothie">Smoothie</option>
+                            <option value="Limonade">Limonade</option>
+                        </optgroup>
+                        <optgroup label="Alkohol">
+                            <option value="Bier">Bier</option>
+                            <option value="Wein">Wein</option>
+                            <option value="Cocktails">Cocktails</option>
+                            <option value="Spirituosen">Spirituosen</option>
+                        </optgroup>
+                        <optgroup label="✨ Eigene Eingabe">
+                            <option value="CUSTOM">-- Eigenes Getränk eingeben --</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group" id="customDrinkField" style="display: none;">
+                    <label for="customDrinkInput">Eigenes Getränk:</label>
+                    <input type="text" id="customDrinkInput" placeholder="z.B. Cola Zero, Energy Drink, etc.">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="drinkQuantity">Anzahl:</label>
+                        <input type="number" id="drinkQuantity" step="1" min="1" value="1" placeholder="z.B. 2">
+                    </div>
+                    <div class="form-group">
+                        <label for="drinkUnit">Einheit:</label>
+                        <select id="drinkUnit">
+                            <option value="ml">Milliliter (ml)</option>
+                            <option value="Glas">Glas (200ml)</option>
+                            <option value="Tasse">Tasse (150ml)</option>
+                            <option value="Flasche">Flasche (500ml)</option>
+                            <option value="Liter">Liter (1000ml)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="drinkAmount">Menge pro Einheit (optional, nur bei ml):</label>
+                    <input type="number" id="drinkAmount" step="1" placeholder="z.B. 250 (nur bei ml nötig)">
+                    <small>Bei ml: Geben Sie die Menge ein. Bei anderen Einheiten: Wird automatisch berechnet.</small>
+                </div>
+                <div class="form-group">
+                    <label for="drinkComment">Kommentar (optional):</label>
+                    <input type="text" id="drinkComment" placeholder="z.B. beim Essen">
+                </div>
+                <button class="btn btn-primary" onclick="addDrink()">
+                    <i class="fas fa-plus"></i> Hinzufügen
+                </button>
+            </div>
+        </section>
+
+        <!-- Bewegung Tab -->
+        <section class="tab-content" id="activityTab">
+            <h2><i class="fas fa-walking"></i> Bewegung tracken</h2>
+            <div class="form-card">
+                <div class="form-group">
+                    <label for="activityType">Aktivität:</label>
+                    <select id="activityType" onchange="toggleCustomActivityField()">
+                        <option value="">-- Auswählen --</option>
+                        <option value="Spazieren (langsam)">Spazieren (langsam, 3 km/h)</option>
+                        <option value="Spazieren (normal)">Spazieren (normal, 4 km/h)</option>
+                        <option value="Spazieren (zügig)">Spazieren (zügig, 5 km/h)</option>
+                        <option value="Wandern">Wandern</option>
+                        <option value="Joggen">Joggen</option>
+                        <option value="Radfahren">Radfahren</option>
+                        <option value="Schwimmen">Schwimmen</option>
+                        <option value="Gymnastik">Gymnastik</option>
+                        <option value="Yoga">Yoga</option>
+                        <option value="Krafttraining">Krafttraining</option>
+                        <option value="Hausarbeit">Hausarbeit</option>
+                        <option value="Gartenarbeit">Gartenarbeit</option>
+                        <optgroup label="✨ Eigene Eingabe">
+                            <option value="CUSTOM">-- Eigene Aktivität eingeben --</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group" id="customActivityField" style="display: none;">
+                    <label for="customActivityInput">Eigene Aktivität:</label>
+                    <input type="text" id="customActivityInput" placeholder="z.B. Tanzen, Putzen, etc.">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="activityValue">Distanz (km) oder Dauer (min):</label>
+                        <input type="number" id="activityValue" step="0.1" placeholder="z.B. 2.5">
+                    </div>
+                    <div class="form-group">
+                        <label for="activityUnit">Einheit:</label>
+                        <select id="activityUnit">
+                            <option value="km">Kilometer (km)</option>
+                            <option value="min">Minuten (min)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="calories-estimate" id="caloriesEstimate" style="display: none;">
+                    <i class="fas fa-fire"></i>
+                    <span>Geschätzte Kalorien: <strong id="estimatedCalories">0</strong> kcal</span>
+                </div>
+                <div class="form-group">
+                    <label for="activityComment">Kommentar (optional):</label>
+                    <input type="text" id="activityComment" placeholder="z.B. Park, mit Hund">
+                </div>
+                <button class="btn btn-primary" onclick="addActivity()">
+                    <i class="fas fa-plus"></i> Hinzufügen
+                </button>
+            </div>
+        </section>
+
+        <!-- Verlauf Tab -->
+        <section class="tab-content" id="historyTab">
+            <h2><i class="fas fa-history"></i> Verlauf</h2>
+            <div class="history-controls">
+                <button class="btn btn-secondary" onclick="exportData()">
+                    <i class="fas fa-download"></i> CSV Export
+                </button>
+                <button class="btn btn-danger" onclick="clearHistory()">
+                    <i class="fas fa-trash"></i> Verlauf löschen
+                </button>
+            </div>
+            <div id="historyList" class="history-list">
+                <!-- Wird dynamisch gefüllt -->
+            </div>
+        </section>
+
+        <!-- Tagesübersicht -->
+        <section class="summary-section">
+            <h2><i class="fas fa-calendar-day"></i> Heute - <span id="currentDate"></span></h2>
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Mahlzeiten</h3>
+                    <p class="count" id="mealCount">0</p>
+                </div>
+                <div class="summary-card">
+                    <i class="fas fa-glass-water"></i>
+                    <h3>Getränke</h3>
+                    <p class="count" id="drinkCount">0</p>
+                </div>
+                <div class="summary-card">
+                    <i class="fas fa-walking"></i>
+                    <h3>Bewegung</h3>
+                    <p class="count" id="activityCount">0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Persönliche Daten Bereich -->
+        <section class="profile-section" id="profileSection">
+            <h2><i class="fas fa-user"></i> Persönliche Daten</h2>
+            <div class="profile-form">
+                <div class="form-group">
+                    <label for="weight">Gewicht (kg):</label>
+                    <input type="number" id="weight" step="0.1" value="99.4">
+                </div>
+                <div class="form-group">
+                    <label for="height">Größe (cm):</label>
+                    <input type="number" id="height" value="173">
+                </div>
+                <div class="form-group">
+                    <label for="birthdate">Geburtsdatum:</label>
+                    <input type="date" id="birthdate" value="1982-05-01">
+                </div>
+                <div class="form-group">
+                    <label for="gender">Geschlecht:</label>
+                    <select id="gender">
+                        <option value="weiblich">Weiblich</option>
+                        <option value="männlich">Männlich</option>
+                    </select>
+                </div>
+                <button class="btn btn-save" onclick="saveProfile()">
+                    <i class="fas fa-save"></i> Speichern & an Google Sheets senden
+                </button>
+            </div>
+        </section>
+
+        <!-- Google Sheets Konfiguration -->
+        <section class="config-section">
+            <h2><i class="fas fa-cog"></i> Google Sheets Konfiguration</h2>
+            <div class="form-card">
+                <div class="form-group">
+                    <label for="sheetsUrl">Google Apps Script Web-App URL:</label>
+                    <input type="text" id="sheetsUrl" placeholder="https://script.google.com/macros/s/...">
+                    <small>Siehe Anleitung in der README.md</small>
+                </div>
+                <button class="btn btn-save" onclick="saveSheetsUrl()">
+                    <i class="fas fa-save"></i> URL Speichern
+                </button>
+                <button class="btn btn-secondary" onclick="testSheetsConnection()">
+                    <i class="fas fa-flask"></i> Verbindung testen
+                </button>
+            </div>
+        </section>
+
+        <!-- Eigene Einträge verwalten -->
+        <section class="config-section">
+            <h2><i class="fas fa-list"></i> Meine gespeicherten Einträge</h2>
+            <div class="form-card">
+                <p style="color: #666; margin-bottom: 15px;">Hier sehen Sie alle Ihre selbst hinzugefügten Lebensmittel, Getränke und Aktivitäten.</p>
+                
+                <div class="custom-items-container">
+                    <h3><i class="fas fa-utensils"></i> Meine Lebensmittel (<span id="customFoodsCount">0</span>)</h3>
+                    <div id="customFoodsList" class="custom-items-list"></div>
+                    
+                    <h3><i class="fas fa-glass-water"></i> Meine Getränke (<span id="customDrinksCount">0</span>)</h3>
+                    <div id="customDrinksList" class="custom-items-list"></div>
+                    
+                    <h3><i class="fas fa-walking"></i> Meine Aktivitäten (<span id="customActivitiesCount">0</span>)</h3>
+                    <div id="customActivitiesList" class="custom-items-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Health Tracker © 2024 DikoRemote | Ihre Daten bleiben lokal in Ihrem Browser gespeichert</p>
+        </footer>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
